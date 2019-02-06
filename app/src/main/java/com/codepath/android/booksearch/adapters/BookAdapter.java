@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.android.booksearch.GlideApp;
@@ -27,6 +29,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         public ImageView ivCover;
         public TextView tvTitle;
         public TextView tvAuthor;
+        public RelativeLayout bookLayout;
 
         public ViewHolder(View itemView) {
             // Stores the itemView in a public final member variable that can be used
@@ -36,6 +39,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             ivCover = (ImageView)itemView.findViewById(R.id.ivBookCover);
             tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
             tvAuthor = (TextView)itemView.findViewById(R.id.tvAuthor);
+            bookLayout = (RelativeLayout)itemView.findViewById(R.id.rlBook);
         }
     }
 
@@ -64,6 +68,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public void onBindViewHolder(BookAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
         Book book = mBooks.get(position);
+
+        //Add the onclick to the layout
+        viewHolder.bookLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //Testing if it even clicks on a book
+                Toast.makeText(getContext(), "you clicked on a book", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Populate data into the template view using the data object
         viewHolder.tvTitle.setText(book.getTitle());
